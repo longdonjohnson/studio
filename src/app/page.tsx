@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, {useState, useEffect, useRef} from 'react';
@@ -53,10 +54,12 @@ const styles = {
   userMessage: {
     backgroundColor: '#DCF8C6',
     alignSelf: 'flex-end',
+    color: 'var(--user-message-text)', /* Use CSS variable for text color */
   },
   aiMessage: {
     backgroundColor: '#A0D2EB',
     alignSelf: 'flex-start',
+    color: 'var(--ai-message-text)', /* Use CSS variable for text color */
   },
 };
 
@@ -158,7 +161,7 @@ export default function Home() {
     <div style={styles.container}>
       <Card>
         <CardHeader>
-          <CardTitle>ChatterKid</CardTitle>
+          <CardTitle>KidenAI</CardTitle>
         </CardHeader>
         <CardContent>
           <div ref={chatAreaRef} style={styles.chatArea}>
@@ -190,4 +193,3 @@ export default function Home() {
     </div>
   );
 }
-

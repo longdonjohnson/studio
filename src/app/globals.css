@@ -42,6 +42,10 @@ body {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --user-message-text: 0 0% 0%; /* Black for user messages */
+    --ai-message-text: 0 0% 0%; /* Black for AI messages */
+
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -76,6 +80,9 @@ body {
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --user-message-text: 0 0% 100%; /* White for user messages */
+    --ai-message-text: 0 0% 100%; /* White for AI messages */
   }
 }
 
@@ -87,4 +94,3 @@ body {
     @apply bg-background text-foreground;
   }
 }
-
