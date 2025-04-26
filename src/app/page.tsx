@@ -121,7 +121,12 @@ export default function Home() {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        // Check if the status code is 404
+        if (response.status === 404) {
+          throw new Error(`The Gemini API endpoint was not found. Please ensure the API endpoint is correct.`);
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
       }
 
       const data = await response.json();
@@ -133,7 +138,7 @@ export default function Home() {
       console.error('Failed to fetch AI response:', error);
       toast({
         title: "Something went wrong!",
-        description: "Failed to get response from AI. Please check your API key and network connection.",
+        description: error.message || "Failed to get response from AI. Please check your API key and network connection.",
         variant: "destructive",
       });
     }
