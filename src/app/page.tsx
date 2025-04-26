@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, {useState, useEffect, useRef} from 'react';
@@ -6,62 +5,9 @@ import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card';
 import {useToast} from "@/hooks/use-toast";
+import {cn} from "@/lib/utils";
 
 const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100vh',
-    padding: '20px',
-    backgroundColor: '#f0f0f0',
-  },
-  chatArea: {
-    flexGrow: 1,
-    overflowY: 'auto',
-    marginBottom: '20px',
-    padding: '10px',
-    border: '1px solid #ccc',
-    borderRadius: '8px',
-    backgroundColor: 'white',
-  },
-  inputArea: {
-    display: 'flex',
-  },
-  inputField: {
-    flexGrow: 1,
-    padding: '10px',
-    border: '1px solid #ccc',
-    borderRadius: '8px',
-    marginRight: '10px',
-  },
-  sendButton: {
-    padding: '10px 15px',
-    backgroundColor: '#007BFF',
-    color: 'white',
-    border: 'none',
-    borderRadius: '8px',
-    cursor: 'pointer',
-  },
-  messageBubble: {
-    padding: '10px',
-    borderRadius: '8px',
-    marginBottom: '10px',
-    maxWidth: '70%',
-    wordWrap: 'break-word',
-  },
-  userMessage: {
-    backgroundColor: '#DCF8C6',
-    alignSelf: 'flex-end',
-    color: 'var(--user-message-text)', /* Use CSS variable for text color */
-  },
-  aiMessage: {
-    backgroundColor: '#A0D2EB',
-    alignSelf: 'flex-start',
-    color: 'var(--ai-message-text)', /* Use CSS variable for text color */
-  },
-};
 
 interface Message {
   text: string;
@@ -158,38 +104,44 @@ export default function Home() {
   };
 
   return (
-    <div style={styles.container}>
-      <Card>
+    <div className="flex flex-col h-screen p-5 bg-background">
+      <Card className="flex-grow flex flex-col">
         <CardHeader>
           <CardTitle>KidenAI</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div ref={chatAreaRef} style={styles.chatArea}>
+        <CardContent className="flex-grow flex flex-col">
+          <div
+            ref={chatAreaRef}
+            className="flex-grow overflow-y-auto mb-4 p-3 border rounded-lg bg-white"
+          >
             {messages.map((message, index) => (
               <div
                 key={index}
-                style={{
-                  ...styles.messageBubble,
-                  ...(message.isUser ? styles.userMessage : styles.aiMessage),
-                }}
+                className={cn(
+                  "p-2 rounded-lg mb-2 max-w-[70%] break-words",
+                  message.isUser ? "bg-green-200 text-user-message-text self-end" : "bg-blue-200 text-ai-message-text self-start"
+                )}
               >
                 {message.text}
               </div>
             ))}
           </div>
-          <div style={styles.inputArea}>
+          <div className="flex">
             <Input
-              style={styles.inputField}
+              className="flex-grow p-2 border rounded-lg mr-2"
               type="text"
               placeholder="Type your message..."
               value={inputValue}
               onChange={handleInputChange}
               onKeyDown={handleInputKeyDown}
             />
-            <Button style={styles.sendButton} onClick={sendMessage}>Send</Button>
+            <Button onClick={sendMessage}>Send</Button>
           </div>
         </CardContent>
       </Card>
     </div>
   );
 }
+
+
+    

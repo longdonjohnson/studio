@@ -7,8 +7,9 @@ import {Label} from "@/components/ui/label";
 import {Textarea} from "@/components/ui/textarea";
 import {useToast} from "@/hooks/use-toast";
 import {Slider} from "@/components/ui/slider";
-import {Card, CardContent} from "@/components/ui/card";
+import {Card, CardContent, CardDescription as UICardDescription, CardHeader as UICardHeader, CardTitle as UICardTitle} from "@/components/ui/card";
 import {Switch} from "@/components/ui/switch";
+import {cn} from "@/lib/utils";
 
 interface TermsAndConditionsProps {
 }
@@ -87,39 +88,46 @@ export const TermsAndConditions: React.FC<TermsAndConditionsProps> = () => {
         <DialogHeader>
           <DialogTitle>Terms & Conditions</DialogTitle>
           <DialogDescription>
-            Please read and accept the following terms and conditions to continue using ChatterKid.
+            Please read and accept the following terms and conditions to continue using KidenAI.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="space-y-2">
-            <Label htmlFor="terms">Terms and Conditions</Label>
-            <Textarea
-              id="terms"
-              className="resize-none"
-              readOnly
-              value={`
-Welcome to ChatterKid!
 
-By using ChatterKid, you agree to the following terms:
+          <Card>
+            <CardContent className="grid gap-4 py-4">
+              <UICardHeader>
+                <UICardTitle>Safety & Usage</UICardTitle>
+                <UICardDescription>
+                  Welcome to KidenAI! By using KidenAI, you agree to the following terms:
+                </UICardDescription>
+              </UICardHeader>
+              <div className="space-y-2">
+                <Label htmlFor="terms">Terms and Conditions</Label>
+                <Textarea
+                  id="terms"
+                  className="resize-none"
+                  readOnly
+                  value={`
+1. Safety: KidenAI is designed for children 13 and under. We use AI content filtering to ensure age-appropriate and safe content.
 
-1. Safety: ChatterKid is designed for children 13 and under. We use AI content filtering to ensure age-appropriate and safe content.
+2. Parental Consent: By accepting these terms, you confirm that you are a parent or guardian of the child using this app and consent to their use of KidenAI.
 
-2. Parental Consent: By accepting these terms, you confirm that you are a parent or guardian of the child using this app and consent to their use of ChatterKid.
-
-3. No Liability: We are not responsible for any issues arising from the use of ChatterKid.
+3. No Liability: We are not responsible for any issues arising from the use of KidenAI.
 
 4. Privacy: We do not collect personal information. All conversations are processed by the AI and are not stored.
 
-5. API Usage: This app uses the Gemini 2.5 Flash API. Usage is subject to Google's AI Terms of Service.
+5. API Usage: This app uses the Gemini 1.5 Flash API. Usage is subject to Google's AI Terms of Service.
 
 6. Parental Controls: Parents can set additional filtering options for the AI’s responses.
 
 7. Offline Games: When offline, a set of three playable, educational games will be available.
 
-By clicking "Accept," you agree to these terms. If you do not agree, please discontinue use of ChatterKid.
+By clicking "Accept," you agree to these terms. If you do not agree, please discontinue use of KidenAI.
 `}
-            />
-          </div>
+                />
+              </div>
+            </CardContent>
+          </Card>
 
           <Card>
             <CardContent className="grid gap-4 py-4">
@@ -187,3 +195,5 @@ By clicking "Accept," you agree to these terms. If you do not agree, please disc
     </Dialog>
   );
 };
+
+    

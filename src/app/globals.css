@@ -43,6 +43,8 @@ body {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
+    --user-message-text: 0 0% 9%; /* User message text color */
+    --ai-message-text: 0 0% 9%; /* AI message text color */
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -77,6 +79,9 @@ body {
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --user-message-text: 0 0% 98%; /* Dark mode user message text color */
+    --ai-message-text: 0 0% 98%; /* Dark mode AI message text color */
   }
 }
 
@@ -88,3 +93,6 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+
+    
