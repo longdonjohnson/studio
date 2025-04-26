@@ -7,19 +7,25 @@ import {Label} from "@/components/ui/label";
 import {Textarea} from "@/components/ui/textarea";
 import {useToast} from "@/hooks/use-toast";
 import {Slider} from "@/components/ui/slider";
+import {Card, CardContent} from "@/components/ui/card";
+import {Switch} from "@/components/ui/switch";
 
 interface TermsAndConditionsProps {
 }
 
 const storageKey = "termsAccepted";
 const launchCountKey = "launchCount";
+const parentalControlsKey = "parentalControls";
 
 export const TermsAndConditions: React.FC<TermsAndConditionsProps> = () => {
   const [showDialog, setShowDialog] = useState(false);
   const [hasAccepted, setHasAccepted] = useState(false);
   const [launchCount, setLaunchCount] = useState(0);
   const [additionalControls, setAdditionalControls] = useState('');
-  const [sliderValue, setSliderValue] = useState([50]);
+  const [isModerationActive, setIsModerationActive] = useState(false);
+  const [violenceLevel, setViolenceLevel] = useState([50]);
+  const [sexualContentLevel, setSexualContentLevel] = useState([50]);
+  const [hateSpeechLevel, setHateSpeechLevel] = useState([50]);
   const {toast} = useToast();
 
   useEffect(() => {
@@ -61,10 +67,17 @@ export const TermsAndConditions: React.FC<TermsAndConditionsProps> = () => {
   };
 
   const setParentalControls = () => {
-    localStorage.setItem("parentalControls", additionalControls);
+    const parentalControls = {
+      isModerationActive,
+      violenceLevel: violenceLevel[0],
+      sexualContentLevel: sexualContentLevel[0],
+      hateSpeechLevel: hateSpeechLevel[0],
+      additionalControls
+    };
+    localStorage.setItem(parentalControlsKey, JSON.stringify(parentalControls));
     toast({
       title: "Parental Controls Set!",
-      description: "The additional parental controls have been saved.",
+      description: "The parental controls have been saved.",
     });
   };
 
@@ -107,25 +120,61 @@ By clicking "Accept," you agree to these terms. If you do not agree, please disc
 `}
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="parental-controls">Additional Parental Controls</Label>
-            <Textarea
-              id="parental-controls"
-              placeholder="Enter any additional filtering options here..."
-              value={additionalControls}
-              onChange={(e) => setAdditionalControls(e.target.value)}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Content Filtering Strength</Label>
-            <Slider
-              defaultValue={sliderValue}
-              max={100}
-              step={1}
-              onValueChange={(value) => setSliderValue(value)}
-            />
-            <p>Selected strength: {sliderValue[0]}%</p>
-          </div>
+
+          <Card>
+            <CardContent className="grid gap-4 py-4">
+              <div className="flex items-center space-x-2">
+                <Switch id="moderation" onCheckedChange={(checked) => setIsModerationActive(checked)}/>
+                <Label htmlFor="moderation">Enable Additional Moderation</Label>
+              </div>
+              {isModerationActive && (
+                <>
+                  <p className="text-sm text-muted-foreground">
+                    Additional moderation settings are active, building upon the default safety measures.
+                  </p>
+                  <div className="space-y-2">
+                    <Label>Violence Level</Label>
+                    <Slider
+                      defaultValue={violenceLevel}
+                      max={100}
+                      step={1}
+                      onValueChange={(value) => setViolenceLevel(value)}
+                    />
+                    <p>Selected violence level: {violenceLevel[0]}%</p>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Sexual Content Level</Label>
+                    <Slider
+                      defaultValue={sexualContentLevel}
+                      max={100}
+                      step={1}
+                      onValueChange={(value) => setSexualContentLevel(value)}
+                    />
+                    <p>Selected sexual content level: {sexualContentLevel[0]}%</p>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Hate Speech Level</Label>
+                    <Slider
+                      defaultValue={hateSpeechLevel}
+                      max={100}
+                      step={1}
+                      onValueChange={(value) => setHateSpeechLevel(value)}
+                    />
+                    <p>Selected hate speech level: {hateSpeechLevel[0]}%</p>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="parental-controls">Additional Filtering Options</Label>
+                    <Textarea
+                      id="parental-controls"
+                      placeholder="Enter any additional filtering options here..."
+                      value={additionalControls}
+                      onChange={(e) => setAdditionalControls(e.target.value)}
+                    />
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
         </div>
         <div className="flex justify-between">
           <Button onClick={acceptTerms}>Accept</Button>
