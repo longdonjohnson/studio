@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  env: {
+    NEXT_PUBLIC_GEMINI_API_KEY: 'AIzaSyA8v21MNPT7OG9Ob-h_3dBPmZaBtnqlZh0',
+  }
 };
 
 export default nextConfig;
+
