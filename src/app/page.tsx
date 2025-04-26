@@ -39,7 +39,7 @@ export default function Home() {
         throw new Error('API key is missing. Please set the NEXT_PUBLIC_GEMINI_API_KEY environment variable.');
       }
 
-      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=' + API_KEY, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_KEY}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col h-screen p-5 bg-background">
+    <div className="flex flex-col min-h-screen p-5 bg-background">
       <Card className="flex-grow flex flex-col">
         <CardHeader>
           <CardTitle>KidenAI</CardTitle>
@@ -113,13 +113,14 @@ export default function Home() {
           <div
             ref={chatAreaRef}
             className="flex-grow overflow-y-auto mb-4 p-3 border rounded-lg bg-white"
+            style={{height: '50vh'}} // Set a reasonable height for the chat area
           >
             {messages.map((message, index) => (
               <div
                 key={index}
                 className={cn(
-                  "p-2 rounded-lg mb-2 max-w-[70%] break-words text-black",
-                  message.isUser ? "bg-green-300 self-end" : "bg-blue-300 self-start"
+                  "p-2 rounded-lg mb-2 max-w-[70%] break-words",
+                  message.isUser ? "bg-green-600 text-black self-end" : "bg-blue-800 text-black self-start"
                 )}
               >
                 {message.text}

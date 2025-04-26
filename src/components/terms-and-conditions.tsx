@@ -1,13 +1,19 @@
 "use client";
 
 import React, {useState, useEffect} from 'react';
-import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger} from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 import {Label} from "@/components/ui/label";
 import {Textarea} from "@/components/ui/textarea";
 import {useToast} from "@/hooks/use-toast";
 import {Slider} from "@/components/ui/slider";
-import {Card, CardContent, CardDescription as UICardDescription, CardHeader as UICardHeader, CardTitle as UICardTitle} from "@/components/ui/card";
+import {Card, CardContent as UICardContent, CardHeader as UICardHeader, CardTitle as UICardTitle} from "@/components/ui/card";
 import {Switch} from "@/components/ui/switch";
 import {cn} from "@/lib/utils";
 
@@ -30,19 +36,15 @@ export const TermsAndConditions: React.FC<TermsAndConditionsProps> = () => {
   const {toast} = useToast();
 
   useEffect(() => {
-    // Check if terms have been accepted
     const accepted = localStorage.getItem(storageKey) === "true";
-    setHasAccepted(accepted);
-
-    // Get launch count
     const count = localStorage.getItem(launchCountKey);
     const launchNumber = count ? parseInt(count, 10) : 0;
+
+    setHasAccepted(accepted);
     setLaunchCount(launchNumber);
 
     // Show dialog if not accepted and launch count is less than 3
-    if (!accepted && launchNumber < 3) {
-      setShowDialog(true);
-    }
+    setShowDialog(!accepted && launchNumber < 3);
 
     // Increment launch count
     localStorage.setItem(launchCountKey, (launchNumber + 1).toString());
@@ -59,7 +61,7 @@ export const TermsAndConditions: React.FC<TermsAndConditionsProps> = () => {
   };
 
   const disableDialog = () => {
-    localStorage.setItem(launchCountKey, "4");
+    localStorage.setItem(launchCountKey, "3"); // Set to 3 to prevent showing again
     setShowDialog(false);
     toast({
       title: "Terms & Conditions Disabled!",
@@ -92,14 +94,10 @@ export const TermsAndConditions: React.FC<TermsAndConditionsProps> = () => {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-
           <Card>
-            <CardContent className="grid gap-4 py-4">
+            <UICardContent className="grid gap-4 py-4">
               <UICardHeader>
                 <UICardTitle>Safety & Usage</UICardTitle>
-                <UICardDescription>
-                  Welcome to KidenAI! By using KidenAI, you agree to the following terms:
-                </UICardDescription>
               </UICardHeader>
               <div className="space-y-2">
                 <Label htmlFor="terms">Terms and Conditions</Label>
@@ -126,11 +124,11 @@ By clicking "Accept," you agree to these terms. If you do not agree, please disc
 `}
                 />
               </div>
-            </CardContent>
+            </UICardContent>
           </Card>
 
           <Card>
-            <CardContent className="grid gap-4 py-4">
+            <UICardContent className="grid gap-4 py-4">
               <div className="flex items-center space-x-2">
                 <Switch id="moderation" onCheckedChange={(checked) => setIsModerationActive(checked)}/>
                 <Label htmlFor="moderation">Enable Additional Moderation</Label>
@@ -181,7 +179,7 @@ By clicking "Accept," you agree to these terms. If you do not agree, please disc
                   </div>
                 </>
               )}
-            </CardContent>
+            </UICardContent>
           </Card>
         </div>
         <div className="flex justify-between">
@@ -195,5 +193,3 @@ By clicking "Accept," you agree to these terms. If you do not agree, please disc
     </Dialog>
   );
 };
-
-    
