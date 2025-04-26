@@ -118,8 +118,8 @@ export default function Home() {
               <div
                 key={index}
                 className={cn(
-                  "p-2 rounded-lg mb-2 max-w-[70%] break-words",
-                  message.isUser ? "bg-green-200 text-user-message-text self-end" : "bg-blue-200 text-ai-message-text self-start"
+                  "p-2 rounded-lg mb-2 max-w-[70%] break-words text-black",
+                  message.isUser ? "bg-green-300 self-end" : "bg-blue-300 self-start"
                 )}
               >
                 {message.text}
@@ -142,6 +142,3 @@ export default function Home() {
     </div>
   );
 }
-
-
-    
