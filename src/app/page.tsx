@@ -123,7 +123,7 @@ export default function Home() {
       if (!response.ok) {
         // Check if the status code is 404
         if (response.status === 404) {
-          throw new Error(`The Gemini API endpoint was not found. Please ensure the API endpoint is correct.`);
+          throw new Error(`Gemini API endpoint not found. Ensure the API endpoint is correct and the model exists.`);
         } else {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -190,3 +190,4 @@ export default function Home() {
     </div>
   );
 }
+
