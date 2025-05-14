@@ -17,17 +17,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'KidenAI',
+  title: 'KidenAi',
   description: 'A safe and fun chat app for kids!',
   viewport: 'width=device-width, initial-scale=1, viewport-fit=cover',
-  manifest: '/manifest.json', // Added manifest link
-  themeColor: '#A4C8F0', // Added theme color
-  appleWebAppCapable: 'yes',
-  appleWebAppStatusBarStyle: 'default',
-  appleWebAppTitle: 'KidenAI',
-  icons: { // Added apple touch icons
-    apple: '/icons/icon-192x192.png',
-  },
 };
 
 export default function RootLayout({
@@ -37,10 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        {/* Keeping theme-color meta here as well for broader compatibility */}
-        <meta name="theme-color" content="#A4C8F0" />
-      </head>
+      <head />
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <TermsAndConditions/>
