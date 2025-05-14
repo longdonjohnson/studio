@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">KidenAI</string>
+    <string name="title_activity_main">KidenAI</string>
+    <string name="package_name">com.kidenai.app</string>
+    <string name="custom_url_scheme">com.kidenai.app</string>
+</resources>
