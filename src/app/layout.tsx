@@ -5,6 +5,7 @@ import './globals.css';
 import {Toaster} from '@/components/ui/toaster';
 import {TermsAndConditions} from '@/components/terms-and-conditions';
 import {ThemeProvider} from "@/components/theme-provider";
+import DynamicNeonBackground from '@/components/ui/DynamicNeonBackground';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,6 +33,7 @@ export default function RootLayout({
       <head />
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <DynamicNeonBackground />
         <TermsAndConditions/>
         {children}
         <Toaster/>
